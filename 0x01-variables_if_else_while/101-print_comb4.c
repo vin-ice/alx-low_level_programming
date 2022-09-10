@@ -1,7 +1,7 @@
 #include <stdio.h>
 /**
- * main - Prints all possible combinations of threee different digits, 
- * in ascending order, seperated by a comma followed by 
+ * main - Prints all possible combinations of threee different digits,
+ * in ascending order, seperated by a comma followed by
  * space.
  *
  * Return: Always 0.
@@ -10,11 +10,11 @@ int main(void)
 {
 	int i, j, k;
 	
-	for (i = 0; i < 9; i++)
+	for (i = 0; i < 8; i++)
 	{
 		for (j =i; j < 9; j++)
 		{
-			for (k = j; k < 9; k++)
+			for (k = j; k < 10; k++)
 			{
 				if (i == j && j == k)
 					continue;
