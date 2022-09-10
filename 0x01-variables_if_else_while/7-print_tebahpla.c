@@ -9,7 +9,7 @@ int main(void)
 	char *alphabets = "abcdefghijklmnopqrstuvwxyz";
 	int alpha;
 
-	for (alpha = 26; alpha >= 0; alpha--)
+	for (alpha = 25; alpha >= 0; alpha--)
 		putchar(*(alphabets + alpha));
 	putchar('\n');
 	return (0);
