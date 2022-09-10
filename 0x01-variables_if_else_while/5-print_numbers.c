@@ -2,7 +2,7 @@
 /**
  * main - invokes the putchar lib function
  *
- * Retrun: retruns 0 to stdout
+ * Return: retruns 0 to stdout
  */
 int main(void)
 {
