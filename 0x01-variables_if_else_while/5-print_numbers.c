@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
- * main- invokes the putchar lib function
+ * main - invokes the putchar lib function
  *
  * Retrun: retruns 0 to stdout
  */
