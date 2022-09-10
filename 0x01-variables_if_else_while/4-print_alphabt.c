@@ -6,7 +6,7 @@
  */
 int main(void)
 {
-	char *alphabets = "abcdfghijklmoprstuvwxyz\n";
+	char *alphabets = "abcdfghijklmnoprstuvwxyz\n";
 
 	do {
 		putchar(*alphabets);
