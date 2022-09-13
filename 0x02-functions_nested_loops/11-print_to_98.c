@@ -1,9 +1,9 @@
 #include "main.h"
+void _collect_and_print(int);
 /**
  * print_to_98 - prints all natural numbers from n to 98
  * @n: starting point
  */
-void _collect_and_print(int);
 void print_to_98(int n)
 {
 	if (n < 98)
