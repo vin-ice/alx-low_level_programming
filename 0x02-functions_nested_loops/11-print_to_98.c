@@ -6,8 +6,6 @@
 void _collect_and_print(int);
 void print_to_98(int n)
 {
-	int i, collect[5], j;
-
 	if (n < 98)
 	{
 		while (n < 98)
