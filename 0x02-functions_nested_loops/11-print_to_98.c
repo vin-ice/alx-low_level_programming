@@ -17,7 +17,8 @@ void print_to_98(int n)
 			}
 			else
 			{
-				_putchar('0' + n / 10);
+				if (n > 9)
+					_putchar('0' + n / 10);
 				_putchar('0' + n % 10);
 			}
 			_putchar(',');
@@ -35,7 +36,8 @@ void print_to_98(int n)
 			}
 			else
 			{
-				_putchar('0' + n / 10);
+				if (n > 9)
+					_putchar('0' + n / 10);
 				_putchar('0' + n % 10);
 			}
 			_putchar(',');
@@ -61,6 +63,6 @@ void _collect_and_print(int i)
 		collect[j++] = i % 10;
 		i /= 10;
 	}
-	while (j >= 0)
+	while (collect[j])
 		_putchar('0' + collect[j--]);
 }
