@@ -63,6 +63,6 @@ void _collect_and_print(int i)
 		collect[j++] = i % 10;
 		i /= 10;
 	}
-	while (--j)
+	for (j--)
 		_putchar('0' + collect[j]);
 }
