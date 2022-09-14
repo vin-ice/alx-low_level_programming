@@ -14,7 +14,7 @@ int main(void)
 		printf(",");
 		i = j;
 		j = k;
-		printf("%u", k)
+		printf("%u", k);
 	}
 	return (0);
 }
