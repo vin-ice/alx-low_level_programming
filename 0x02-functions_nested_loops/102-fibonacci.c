@@ -11,7 +11,7 @@ int main(void)
 	for (counter = 1; counter <= 50; counter++)
 	{
 		k = i +  j;
-		printf("%ul", k);
+		printf("%lu", k);
 		i = j;
 		j = k;
 		if (counter == 49)
