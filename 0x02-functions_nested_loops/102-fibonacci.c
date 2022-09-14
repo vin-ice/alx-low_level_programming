@@ -14,7 +14,7 @@ int main(void)
 		printf("%lu", k);
 		i = j;
 		j = k;
-		if (counter == 49)
+		if (counter == 50)
 			printf("\n");
 		else
 			printf(", ");
