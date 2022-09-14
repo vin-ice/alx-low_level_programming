@@ -6,7 +6,7 @@
 int main(void)
 {
 	int counter;
-	unsingned i = 0, j = 1, k;
+	unsigned i = 0, j = 1, k;
 
 	for (counter = 1; counter <= 50; counter++)
 	{
