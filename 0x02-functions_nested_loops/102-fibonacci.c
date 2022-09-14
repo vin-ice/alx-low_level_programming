@@ -6,12 +6,12 @@
 int main(void)
 {
 	int counter;
-	unsigned i = 0, j = 1, k;
+	unsigned long i = 0, j = 1, k;
 
 	for (counter = 1; counter <= 50; counter++)
 	{
 		k = i +  j;
-		printf("%u", k);
+		printf("%ul", k);
 		i = j;
 		j = k;
 		if (counter == 49)
