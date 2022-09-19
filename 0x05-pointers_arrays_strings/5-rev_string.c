@@ -5,9 +5,10 @@
  */
 void rev_string(char *s)
 {
-	int collect[100], count = 0;
+	char collect[1000];
+	int count = 0;
 
-	while (*s != '\0')
+	while (*(s + count) != '\0')
 	{
 		collect[count] = *(s + count);
 		count++;
