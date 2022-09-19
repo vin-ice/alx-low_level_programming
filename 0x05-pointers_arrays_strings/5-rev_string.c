@@ -14,6 +14,6 @@ void rev_string(char *s)
 		count++;
 	}
 	
-	while (count >= 0)
-		_putchar(collect[count--]);
+	while (--count >= 0)
+		_putchar(collect[count]);
 }
