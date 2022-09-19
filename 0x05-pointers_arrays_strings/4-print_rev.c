@@ -5,15 +5,13 @@
  */
 void print_rev(char *s)
 {
-	int count = 0;
-	char collect[1000];
-	
-	while (*(s + count) != '\0')
+	int index;
+
+	for (index = 0; s[index] != '\0'; index++)
+		;
+	for (index = index - 1; s[index] != '\0'; index--)
 	{
-		collect[count] = *(s + count);
-		count++;
+		_putchar(s[index]);
 	}
-	while (--count >= 0)
-		_putchar(collect[count]);
 	_putchar('\n');
 }
