@@ -9,12 +9,7 @@ void puts_half(char *str)
 
 	while (*(str + counter) != '\n')
 		counter++;
-
-	if (counter % 2 == 0)
-		half_len = counter % 2;
-	else
-		half_len = (counter - 1) / 2;
-
+	half_len = (counter % 2 == 0) ? counter / 2 : (counter - 1) / 2;
 	for (; half_len <= counter; half_len++)
 		_putchar(*(str + half_len));
 	
