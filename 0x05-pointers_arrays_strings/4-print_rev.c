@@ -6,9 +6,9 @@
 void print_rev(char *s)
 {
 	int count = 0;
-       char collect[100];
+	char collect[1000];
 	
-	while (count != '\0')
+	while (*(s + count) != '\0')
 	{
 		collect[count] = *(s + count);
 		count++;
