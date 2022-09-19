@@ -10,6 +10,9 @@ char *_strcpy(char *dest, char *src)
 	int count = 0;
 	
 	while (*src != '\0')
+	{
 		*(dest + count) = *(src + count);
+		count++;
+	}
 	return (dest);
 }
