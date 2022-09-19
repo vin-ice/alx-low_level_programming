@@ -21,7 +21,7 @@ int main(void)
   {
     if (randomizer == 1)
     {
-      password[i] = numbrers[rand() % 10];
+      password[i] = numbers[rand() % 10];
       randomizer = rand() % 4;
     }
      else if (randomizer == 2) {
