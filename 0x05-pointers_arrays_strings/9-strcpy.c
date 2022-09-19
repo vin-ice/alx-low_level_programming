@@ -9,10 +9,9 @@ char *_strcpy(char *dest, char *src)
 {
 	int count = 0;
 	
-	while (*(src + count) != '\0')
-	{
+	do {
 		*(dest + count) = *(src + count);
 		count++;
-	}
+	} while (*(src + count) != '\0');
 	return (dest);
 }
