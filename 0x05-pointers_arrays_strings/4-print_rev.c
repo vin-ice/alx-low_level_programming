@@ -13,10 +13,7 @@ void print_rev(char *s)
 		collect[count] = *(s + count);
 		count++;
 	}
-	while (count >= 0)
-	{
+	while (--count >= 0)
 		_putchar(collect[count]);
-		count--;
-	}
 	_putchar('\n');
 }
