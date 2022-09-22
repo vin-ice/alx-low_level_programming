@@ -6,7 +6,7 @@
  */
 int _strcmp(char *s1, char *s2)
 {
-	while (*s1 != '\0' || *s2 != '\0')
+	while (*s1 != '\0' && *s2 != '\0')
 	{
 		if ((int) *s1 == (int) *s2)
 			continue;
