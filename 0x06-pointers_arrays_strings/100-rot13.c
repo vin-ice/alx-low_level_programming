@@ -5,18 +5,28 @@
  */
 char *rot13(char *n)
 {
-	int n_val, i = 0;
+	int stringCount, rotation;
+	char r1[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+		     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+		     'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+		     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+		     'Z'};
+	char r2[] = {'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+		     'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+		     'm', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+		     'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+		     'M'};
 
-	while (n[i] != '\0')
+	for (stringCount = 0; n[stringCount] != '\0'; stringCount++)
 	{
-		n_val = (int) n[i];
-
-		if (n_val > 64 && n_val < 91)
-			n[i] = (char) (65 + (n_val - 65 + 13) % 26);
-		else if (n_val > 96 && n_val < 123)
-			n[i] = (char) (97 + (n_val - 97 + 13) % 26);
-		i++;
+		for (rotation = 0; rotation < 53; rotation++)
+		{
+			if (r1[rotation] == n[stringCount])
+			{
+				n[stringCount] = r2[rotation];
+				break;
+			}
+		}
 	}
-
 	return (n);
 }
