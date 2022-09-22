@@ -1,9 +1,9 @@
 /**
- * _strcat - concatenates two string
- * @dest: String to append to
- * @src: Source string being apppended
- * Return: returns dest string
- */
+* _strcat - concatenates two string
+* @dest: String to append to
+* @src: Source string being apppended
+* Return: returns dest string
+*/
 char *_strcat(char *dest, char *src)
 {
 	int length, j;
