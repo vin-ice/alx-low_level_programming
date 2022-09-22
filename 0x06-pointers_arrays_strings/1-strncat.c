@@ -6,30 +6,18 @@
  * Return: returns string
  */
 char *_strncat(char *dest, char *src, int n)
-{	
-	int i = 0, j = 0, count = 0;
-
-	while (dest[i])
+{
+	int length, j;
+	
+	length = 0;
+	while (dest[length] != '\0')
 	{
-		if (dest[i] == ' ' && count == 0)
-		{
-			i++;
-			count++;
-			continue;
-		}
-		if (dest[i] == ' ' && count == 1)
-		{
-			if (n > 0)
-				dest[i] = src[j];
-			if (n == 0)
-			{
-				dest[i] = '\0';
-				break;
-			}
-			n--;
-			j++;
-		}
-		i++;
+		length++;
 	}
-	return dest;
+	for (j = 0; j < n && src[j] != '\0'; j++, length++)
+	{
+		dest[length] = src[j];
+	}
+	dest[length] = '\0';
+	return (dest);
 }
