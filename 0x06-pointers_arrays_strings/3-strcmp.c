@@ -6,14 +6,14 @@
  */
 int _strcmp(char *s1, char *s2)
 {
-	while (*s1 != '\0' && *s2 != '\0')
+	int counter, cmpVal;
+
+	counter = 0;
+	while (s1[counter] == s2[counter] && s1[counter] != '\0')
 	{
-		if ((int) *s1 == (int) *s2)
-			continue;
-		else
-			return (int) *s1 - (int) *s2;
-		s1++;
-		s2++;
+		counter++;
 	}
-	return 0;
+
+	cmpVal = s1[counter] - s2[counter];
+	return (cmpVal);
 }
