@@ -1,10 +1,11 @@
 /**
  * leet - encodes a string into 1337
- * @n: String
+ * @s: String
  * Return: formatted string
  */
-char *leet(char *n)
-{int stringCount, leetCount;
+char *leet(char *s)
+{
+	int stringCount, leetCount;
 	char leetLetters[] = "aAeEoOtTlL";
 	char leetNums[] = "4433007711";
 
