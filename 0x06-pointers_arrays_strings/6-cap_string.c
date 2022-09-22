@@ -11,22 +11,22 @@ char *cap_string(char *n)
 
 	while (n[i])
 	{
-		n_val = (int) n[i];
-
-		if (n[i] == ',' || n[i] == ';' || n[i] == '.' || n[i] == '!' || n[i] == '?' || n[i] == '\"' || n[i] == '(' || n[i] == ')' || n[i] == '{' || n[i] == '}' || n[i] == ' ' || n[i] == '\t' || n[i] == '\n')
-			h_sep = 1;
-		if (n_val < 123 && n_val > 96)
+		if (s[0] >= 97 && s[0] <= 122)
 		{
-			if (h_sep)
+			s[0] = s[0] - 32;
+		}
+		if (s[count] == ' ' || s[count] == '\t' || s[count] == '\n'
+		    || s[count] == ',' || s[count] == ';' || s[count] == '.'
+		    || s[count] == '.' || s[count] == '!' || s[count] == '?'
+		    || s[count] == '"' || s[count] == '(' || s[count] == ')'
+		    || s[count] == '{' || s[count] == '}')
+		{
+			if (s[count + 1] >= 97 && s[count + 1] <= 122)
 			{
-				n[i] = (char) (n_val - 97) + 65;
-				h_sep = 0;
+				s[count + 1] = s[count + 1] - 32;
 			}
 		}
-		if (n[i] < 91 && n[i] > 64)
-		{
-			h_sep = 0;
-		}
+		count++
 		i++;
 	}
 	return n;
