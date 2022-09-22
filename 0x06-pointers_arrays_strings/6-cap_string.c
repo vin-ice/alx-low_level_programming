@@ -1,12 +1,10 @@
 #include <stdio.h>
-
 /**
  * *cap_string - this is awesome
  * @s: pointer to char params
  *
  * Return: *s
  */
-
 char *cap_string(char *s)
 {
 	int i, j;
