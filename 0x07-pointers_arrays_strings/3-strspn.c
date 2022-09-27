@@ -1,8 +1,9 @@
 /**
  * _strspn - gets length of a prefix substring
- * @s: Strng
+ * @s: String to compare
  * @accept: comparison string
- * Return: returns number of bytes in s which conssits only of
+ * Return: returns number of bytes in s which 
+ * consists only of bytes in accept
  * bytes from accept
  */
 unsigned int _strspn(char *s, char *accept)
