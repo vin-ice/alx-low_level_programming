@@ -1,18 +1,20 @@
 /**
- * _strchr - returns a pointer to the first occurrence of character
- * @s: String containing characters
- * @c: character to find
- * Return: returns irst instance of c
+ * _strchr - locates a character in a string
+ * @s: string to check
+ * @c: character to check for
+ *
+ * Return: pointer to spot in s with c or null
  */
 char *_strchr(char *s, char c)
 {
-	while (*s)
+	int i;
+
+	for (i = 0; *(s + i); i++)
 	{
-		if (*s == c)
-		{
-			return (s);
-		}
-		s++;
+		if (*(s + i) == c)
+			return (s + i);
 	}
-	return ('\0');
+	if (*(s + i) == c)
+		return (s + i);
+	return (0);
 }

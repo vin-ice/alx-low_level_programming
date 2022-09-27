@@ -1,13 +1,18 @@
 /**
- * _memset(char *s, char b, unsigned int n) - fills memory with a constant byte
- * @s: address of memory area
- * @b: constant to copy
- * @n: size of memory area to occupy
- * Return: 
+ * _memset - fills memory with a constant byte
+ * @s: memory space to be filled
+ * @b: byte to fill with
+ * @n: number of spaces to fill
+ *
+ * Return: pointer to memory area s
  */
 char *_memset(char *s, char b, unsigned int n)
 {
-	while (--n)
-		*(s + n) = b;
-	return s;
+	unsigned int i;
+
+	for (i = 0; i < n; i++)
+	{
+		*(s + i) = b;
+	}
+	return (s);
 }
