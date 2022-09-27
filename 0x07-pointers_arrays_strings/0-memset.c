@@ -3,10 +3,12 @@
  * @s: address of memory area
  * @b: constant to copy
  * @n: size of memory area to occupy
- * Return: 
+ *
+ * Return: returns pointer to memory area 
  */
 char *_memset(char *s, char b, unsigned int n)
 {
+	n -= 1;
 	while (n)
 	{
 		*(s + n) = b;
