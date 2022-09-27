@@ -1,28 +1,23 @@
 /**
- * _strspn - gets length of a prefix substring
- * @s: String to compare
- * @accept: comparison string
- * Return: returns number of bytes in s which 
- * consists only of bytes in accept
- * bytes from accept
+ * _strspn - gets lengthof a prefix substring
+ * @s: string to check
+ * @accept: string to check against
+ *
+ * Return: number of bytes of s in accept
  */
 unsigned int _strspn(char *s, char *accept)
 {
-	unsigned int sm_count = 0, i = 0;
+	unsigned int i, j;
 
-	while (*s)
+	for (i = 0; s[i]; i++)
 	{
-		while (*(accept + i))
+		for (j = 0; accept[j]; j++)
 		{
-			if (*s == accept[i])
-			{
-				sm_count++;
-				i = 0;
-				break;	
-			}
-			i++;
+			if (s[i] == accept[j])
+				break;
 		}
-		s++;
+		if (!accept[j])
+			break;
 	}
-	return (sm_count);
+	return (i);
 }
