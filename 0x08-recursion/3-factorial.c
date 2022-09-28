@@ -1,5 +1,5 @@
 /**
- * factorail - returns factorial of a given number
+ * factorial - returns factorial of a given number
  * @n: number
  * Return: returns factorial
  */
