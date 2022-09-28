@@ -1,3 +1,4 @@
+char *wildcard(char *s3, char *s4);
 /**
  * test - tests if wildcard is a proper match
  * @s5: string to compare
