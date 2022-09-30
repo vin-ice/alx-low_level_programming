@@ -1,81 +1,40 @@
-#include "main.h"
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main - driver function
- * @argc - arguments count
- * @argv - arguments vector
- * Return: returns 0
+ * main - prints minimum number of coins to make change for an amount of money.
+ * @argc: number of arguments passed to the function
+ * @argv: argument vector of pointers to strings
+ *
+ * Return: 0 if no errors, else 1
  */
 int main(int argc, char *argv[])
 {
-	char *err = "Error\n";
+	int a, n = 0, i, t;
+	int c[5] = {25, 10, 5, 2, 1};
 
 	if (argc != 2)
 	{
-		while (*err)
-		{
-			_putchar(*err);
-			err++;
-		}
-		_putchar('\n');
-		return (1);	
+		puts("Error");
+		return (1);
 	}
-	change(argv[1]);
-	return (0);
-}
-/**
- * _putchar - prints  characters
- * * @c:  character
- * Return: returns 1 or 0
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-/**
- * change - prints least number of coins to
- * make change
- * @amnt: string containing amnount
- */
-void change(char *amount)
-{	
-	int count = 0;
-
-	int amnt = atoi(amount);
-	while (amnt > 0)
+	a = atoi(argv[1]);
+	if (a <= 0)
 	{
-		if (amnt % 25 == 0)
+		puts("0");
+		return (1);
+	}
+	else
+	{
+		for (i = 0; i < 5; i++)
 		{
-			count++;
-			amnt -= 25;	
-			continue;
-		}
-		if (amnt % 10 == 0)
-		{
-			count++;
-			amnt -= 10;
-			continue;
-		}
-		if (amnt % 5 == 0)
-		{
-			count++;
-			amnt -= 5;
-			continue;
-		}
-		if (amnt % 2 == 0)
-		{
-			count++;
-			amnt -= 2;
-			continue;
-		}
-		if (amnt % 1 == 0)
-		{
-			count++;
-			amnt -= 1;
-			continue;
+			t = a / c[i];
+			a -= t * c[i];
+			n += t;
+			if (a == 0)
+				break;
 		}
 	}
-	printf("%d\n", count);
+	printf("%d\n", n);
+	return (0);
 }
