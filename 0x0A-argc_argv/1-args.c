@@ -1,32 +1,14 @@
-#include "main.h"
-#include <unistd.h>
+#include <stdio.h>
+
 /**
- * main - prints the number of arguments passed
- * @argc: number of parameters
- * @argv: vector containing all arguments
- * Return: returns 0
+ * main - prints the name number of arguments passed to it
+ * @argc: number of arguments passed to the function
+ * @argv: argument vector of pointers to strings
+ *
+ * Return: always 0
  */
-int main(int argc, char __attribute__ ((unused))  *argv[])
-{	
-	nargs(argc);
+int main(int argc, char *argv[] __attribute__((unused)))
+{
+	printf("%d\n", argc - 1);
 	return (0);
-}
-/**
- * nargs - prints number of arguments passsed to function
- * @s: size/count
- */
-void nargs(int s)
-{
-	_putchar('0' + (s - 1));
-	_putchar('\n');
-}
-/**
- * _putchar -prints a charactrer
- * @c:character to be printed
- * Return: returns 1 on success
- * On eerror, 01 is returned 
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
 }
