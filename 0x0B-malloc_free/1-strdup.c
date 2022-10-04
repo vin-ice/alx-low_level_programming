@@ -6,26 +6,23 @@
  * Return: returns pointer to memory else NULL
  */
 char *_strdup(char *str)
-{	char *str_buffer;
-	int size = 0, i = 0;
+{
+	unsigned int i, j;
+	char *s;
 
-	while (*(str + i))
-	{
-		size++;
-		i++;
-	}
-	i = 0;
-	str_buffer = (char *) malloc(size * sizeof(char) + 1);
-	if (str_buffer == NULL)
+	if (str == NULL)
 		return (NULL);
-	else
+	for (i = 0; str[i]; i++)
+		;
+	i++;
+	s = malloc(i * sizeof(char));
+	if (s == NULL)
 	{
-		while (i < size)
-		{
-			*(str_buffer + i) = *(str + i);
-			i++;
-		}
-		*(str_buffer + i) = '\0';
+		return (NULL);
 	}
-	return (str_buffer);
+	for (j = 0; j < i; j++)
+	{
+		s[j] = str[j];
+	}
+	return (s);
 }
