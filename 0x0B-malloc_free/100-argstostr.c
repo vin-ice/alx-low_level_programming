@@ -1,17 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
- * argstostr - function that concatenates all the arguments of your program
- * @ac: arguments number
- * @av: argument variables
- * Return: Always 0.
- */
+* argstostr - function that concatenates all the arguments of your program
+* @ac: arguments number
+* @av: argument variables
+* Return: Always 0.
+*/
 char *argstostr(int ac, char **av)
 {
 	char *s;
 	int a, b, c, d;
-
+	
 	if (ac == 0)
 		return (NULL);
 	if (av == 0)
