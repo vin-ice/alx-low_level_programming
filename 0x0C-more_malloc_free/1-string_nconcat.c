@@ -1,47 +1,40 @@
 #include <stdlib.h>
 /**
- *get_size - count characters in string
- *@s: string
+ * string_nconcat - concatenates two strings.
+ * @s1: first string to copy
+ * @s2: second string to copy
+ * @n: number of bytes of s2 to copy
  *
- * Return: returns size
- */
-unsigned int get_size(char *s)
-{
-	unsigned int size = 0;
-
-	while (*s)
-	{
-		size++;
-		s++;
-	}
-	return (size);
-}
-/**
- * string_nconcat - concatenates two strings
- * @s1: string
- * @s2: string two
- * @n: length of s2 to append
+ * Return: char pointer to newly allocated place in memory
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int size, i = 0, j = 0;
-	char *str_buffer;
-	
-	n = (get_size(s2) <= n) ? get_size(s2) : n;
-	size = get_size(s1) + n + 1;
-	str_buffer = malloc(sizeof *str_buffer * size);	
-	if (str_buffer == NULL)
-		return (NULL);
+	unsigned int i, j, k;
+	char *s;
+
+	if (s1 == NULL)
+		i = 0;
 	else
 	{
-		while (*(s1 + i))
-		{
-			*(str_buffer + i) = *(s1 + i);
-			i++;
-		}
-		for (j = 0;j < n; i++, j++)
-			*(str_buffer + i) = *(s2 + j);
+		for (i = 0; s1[i]; i++)
+			;
 	}
-	*(str_buffer + i) = '\0';
-	return (str_buffer);
-} 
+	if (s2 == NULL)
+		j = 0;
+	else
+	{
+		for (j = 0; s2[j]; j++)
+			;
+	}
+	if (j > n)
+		j = n;
+	s = malloc(sizeof(char) * (i + j + 1));
+	if (s == NULL)
+		return (NULL);
+	for (k = 0; k < i; k++)
+		s[k] = s1[k];
+	for (k = 0; k < j; k++)
+		s[k + i] = s2[k];
+	s[i + j] = '\0';
+	return (s);
+}
