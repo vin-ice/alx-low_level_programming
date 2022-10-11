@@ -5,6 +5,7 @@
  * @name: name property
  * @age: age property
  * @owner: owner property
+ * Return: returns void
  */
 void init_dog(struct dog *d, char *name, float age, char *owner){
 	if (d)
