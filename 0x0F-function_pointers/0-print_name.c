@@ -3,7 +3,7 @@
  * print_name - prints a name
  * @name: name
  * @f: functions address
- * Retunr: returns void
+ * Return: returns void
  */
 void print_name(char *name, void (*f)(char *))
 {
