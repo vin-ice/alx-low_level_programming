@@ -10,7 +10,7 @@ void array_iterator(int *array, size_t size, void (*action)(int))
 {
 	unsigned int i;
 	
-	if (size <= 0 || action == NULL || array == NULL)
+	if (action == NULL || array == NULL)
 		exit (1);
 	for (i = 0; i < size; i++)
 	{	
