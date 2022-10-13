@@ -1,5 +1,5 @@
-#ifdef HEADER_FILE
-#define HEADER_FILE
+#ifdef _CALC_H
+#define _CALC_H
 /**
  * struct op - Struct op
  *
@@ -17,4 +17,5 @@ int op_sub(int, int);
 int op_mul(int, int);
 int op_div(int, int);
 int op_mod(int, int);
-#endif
+
+#endif /* _CALC_H*/
