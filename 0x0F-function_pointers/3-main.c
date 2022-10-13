@@ -1,14 +1,15 @@
-#include "3-calc.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "3-calc.h"
+
 /**
- * main - driver function for calc
- * @argc: arguments argument
- * @argv: argument vectors
+ * main - performs simple operations
+ * @argc: number of arguments passed
+ * @argv: array of pointers to arguments
  *
- * Return: returns 0
+ * Return: always 0
  */
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int a, b, c;
 	int (*f)(int, int);
