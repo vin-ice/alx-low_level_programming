@@ -1,4 +1,10 @@
 #include <stdarg.h>
+/**
+* sum_them_all - sums all parameters
+*@n: number of parameters
+*
+*Return: returns sum af paramters
+*/
 int sum_them_all(const unsigned int n, ...)
 {   
     int sum;
@@ -8,12 +14,9 @@ int sum_them_all(const unsigned int n, ...)
     if (n == 0)
       return (0);
     sum = 0;
-    va_start(p, n);/* macro to start of loop*/
-    /* va_arg(va_list, <type>) = yields next arg*/
-    /*va_end*/
-    for (i = 0; i < n; i++){
+    va_start(p, n);
+    for (i = 0; i < n; i++)
         sum += va_arg(p, int);
-    }
+    va_end(p);
     return (sum);
-
 }
