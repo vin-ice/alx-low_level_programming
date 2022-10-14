@@ -1,7 +1,13 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+/**
+*print_strings - prints strings, followed by new line
+*@separator: separates strings printed
+*@n: number of strings to print
+*
+*Return: returns void
+*/
 void print_strings(const char *separator, const unsigned int n, ...)
 {
     unsigned int i;
@@ -26,4 +32,5 @@ void print_strings(const char *separator, const unsigned int n, ...)
         }
     }
     printf("\n");
+    va_end(pa);
 }
