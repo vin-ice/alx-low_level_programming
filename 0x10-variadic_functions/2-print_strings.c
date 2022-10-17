@@ -1,5 +1,4 @@
 #include <stdarg.h>
-#include <stdlib.h>
 #include <stdio.h>
 /**
 *print_strings - prints strings, followed by new line
@@ -13,9 +12,7 @@ void print_strings(const char *separator, const unsigned int n, ...)
     unsigned int i;
     va_list pa;
     char *ele;
-
-    if (n == 0)
-        exit(1);
+    
     va_start(pa, n);
     for (i = 0; i < n; i++)
     {
@@ -25,11 +22,8 @@ void print_strings(const char *separator, const unsigned int n, ...)
             continue;
         }
         printf("%s", ele);
-        if (i < (n -1))
-        {
-            if (separator != NULL)
+        if (i < (n - 1) && separator)
                 printf("%s", separator);
-        }
     }
     printf("\n");
     va_end(pa);
