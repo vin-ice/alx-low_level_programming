@@ -12,7 +12,7 @@
 int main(int argc, char *argv[])
 {
 	int a, b, c;
-	int (*f)(int, int);
+	int (*f)(int, int); /*points to a function*/
 
 	if (argc != 4)
 	{
