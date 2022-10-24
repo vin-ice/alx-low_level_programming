@@ -1,14 +1,14 @@
-#Singly Linked Lists
-##Concepts
+# Singly Linked Lists
+## Concepts
 [Data Structure](https://alx-intranet.hbtn.io/concepts/120)
-##Resources
+## Resources
 [Linked Lists](https://alx-intranet.hbtn.io/rltoken/joxg32-tt4lUh8Afgst8tA)
-##Objectives
-###General
+## Objectives
+### General
 -When and why using linked lists vs arrays
 -How to build and use linked lists
-##Requirements
-###General
+## Requirements
+### General
 -Allowed editors: vi, vim, emacs
 -All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror         -Wextra         -pedantic -std=gnu89
 -All your files should end with a new line
