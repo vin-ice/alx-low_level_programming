@@ -1,4 +1,5 @@
 #include "lists.h"
+
 /**
 * print_list - prints all the elements of a linked list
 * @h: Linked list
@@ -9,7 +10,7 @@ size_t print_list(const list_t *h)
 {
     unsigned len = 0;
     
-    for(; h; len++)
+    for (; h; len++)
     {
         if (h->str == NULL)
             printf("[0] (nil)\n");
