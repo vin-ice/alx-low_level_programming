@@ -1,4 +1,5 @@
 #include "lists.h"
+
 /**
  * free_listint - frees list of listint_t
  * @head: starting point of list
@@ -7,13 +8,12 @@
  */
 void free_listint(listint_t *head)
 {
-    listint_t *left;
+    listint_t *next;
 
-    for (; head->next;)
-    {
-        left = head;
-        head = head->next;
-        free(left);
-    }
-    free(head);
+	while (head != NULL)
+	{
+		next = head->next;
+		free(head);
+		head = next;
+	}
 }
