@@ -10,26 +10,26 @@ ssize_t read_textfile(const char *filename, size_t letters)
 {
     int fdIn; 
     char *buff;
-    ssize_t fRW;
+    ssize_t f_r, f_w;
 
     if (filename == NULL)
         return (0);
     fdIn = open(filename, O_RDONLY);
     if (fdIn == -1)
         return (0);
-    buff = malloc(sizeof (char) * letters + 1);
+    buff = malloc(sizeof (char) * letters);
     if (buff == NULL)
         return (0);
     /*read from file to buffer*/
-    fRW = read(fdIn, (void *) buff, letters);
-    if (fRW == -1)
+    f_r = read(fdIn, buff, letters);
+    if (f_r == -1)
     {
         free(buff);
         close(fdIn);
         return (0);
     }
-    fRW = write(STDOUT_FILENO, (void *) buff, letters);
-    if (fRW == -1 || fRW < (ssize_t) letters)
+    f_w = write(STDOUT_FILENO, buff, letters);
+    if (f_w == -1 || f_w < (ssize_t) letters)
     {
         free(buff);
         close(fdIn);
@@ -37,5 +37,5 @@ ssize_t read_textfile(const char *filename, size_t letters)
     }
     free (buff);
     close (fdIn);
-    return (fRW);
+    return (f_w);
 }
