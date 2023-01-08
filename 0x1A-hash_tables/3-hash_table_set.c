@@ -19,7 +19,17 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
         return (0);
 
     node->key = strdup(key);
+    if (node->key == NULL)
+    {
+        free(node);
+        return (0);
+    }
     node->value = strdup(value);
+    if (node->value == NULL)
+    {
+        free(node);
+        return (0);
+    }
     index = key_index((const unsigned char *) key, ht->size);
     if (ht->array[index])/**collision prevention*/
     {
