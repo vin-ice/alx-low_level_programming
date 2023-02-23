@@ -5,5 +5,7 @@ SRC = main.c school.c # recursively expanded
 OBJ = ${SRC:.c=.o}
 NAME := school
 
+.PHONY: all
+
 all: ${OBJ}
 	${CC} ${OBJ} -o ${NAME}
