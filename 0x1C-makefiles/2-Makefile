@@ -1,0 +1,9 @@
+.RECIPEPREFIX = 	
+
+CC := gcc
+SRC = main.c school.c # recursively expanded
+OBJ = ${SRC:.c=.o}
+NAME := school
+
+all: ${OBJ}
+	${CC} ${OBJ} -o ${NAME}
