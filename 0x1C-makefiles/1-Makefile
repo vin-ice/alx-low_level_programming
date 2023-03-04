@@ -1,9 +1,7 @@
-.PHONY: all
 .RECIPEPREFIX = 	
 
 CC := gcc
 SRC = main.c school.c
 
-
-all:
+all: 
 	${CC} ${SRC} -o school
