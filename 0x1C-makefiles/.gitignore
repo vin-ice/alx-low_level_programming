@@ -1,5 +1,7 @@
 a.out
+main.o
 main.c
 m.h
 school
 school*
+__pycache__/*
