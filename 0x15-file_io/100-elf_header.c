@@ -1,202 +1,136 @@
+#define _POSIX_C_SOURCE 1
+#define _XOPEN_SOURCE 500
+#include <elf.h>
+#include <errno.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <elf.h>
+
+#define _MAX_HDR_SIZE 64
+
+typedef enum { false, true } bool;
 
 /**
- * print_addr - prints address
- * @ptr: magic.
- * Return: no return.
+ * _get_machine - return machine type
+ * @stream: buffer
+ * @len: size of buffer
+ *
+ * Return: returns string
  */
-void print_addr(char *ptr)
-{
-	int i;
-	int begin;
-	char sys;
+static const char *_get_machine(const uint8_t *stream, size_t len) {
+	unsigned short machine_type;
+	static char str[20];
 
-	printf("  Entry point address:               0x");
-
-	sys = ptr[4] + '0';
-	if (sys == '1')
-	{
-		begin = 26;
-		printf("80");
-		for (i = begin; i >= 22; i--)
-		{
-			if (ptr[i] > 0)
-				printf("%x", ptr[i]);
-			else if (ptr[i] < 0)
-				printf("%x", 256 + ptr[i]);
-		}
-		if (ptr[7] == 6)
-			printf("00");
+	if (!stream || len < 18) {
+		return NULL;
 	}
 
-	if (sys == '2')
+	machine_type = (stream[18] << 8) | stream[19];
+	switch (machine_type) {
+		case 0x0003:
+			return "Intel 80386";
+		case 0x3E00:
+			return "Advanced Micro Devices X86-64";
+		case 0x00B7:
+			return "ARM";
+		case 0x0028:
+			return "ARM AArch64";
+		default:
+			sprintf(str, "Unknown (0x%04X)", machine_type);
+            return str;
+	}
+}
+
+/**
+ * _get_type: prints type of elf file
+ * @stream: byte stream
+ */
+static const char *_get_type(uint8_t *stream, size_t len)
+{
+	unsigned short type_value;
+	static char str[20];
+
+	if (!stream || len < 10) {
+		return NULL;
+	}
+
+	type_value = (stream[9] << 8) & 0xFF;
+	switch (type_value)
 	{
-		begin = 26;
-		for (i = begin; i > 23; i--)
+		case 0: return "NONE";
+		case 1: return "REL";
+		case 2: return "EXEC";
+		case 3: return "DYN";
+		case 4: return "CORE";
+		case 0xFE00:
+		case 0xFE01:
+				return "LOOS";
+		case 0xFF00:
+		case 0xFF01:
+				return "HIPROC";
+		default:
 		{
-			if (ptr[i] >= 0)
-				printf("%02x", ptr[i]);
-
-			else if (ptr[i] < 0)
-				printf("%02x", 256 + ptr[i]);
-
+			sprintf(str, "Unknown (0x%04X)", type_value);
+			return (str);
 		}
 	}
-	printf("\n");
 }
 
 /**
- * print_type - prints type
- * @ptr: magic.
- * Return: no return.
+ * _get_osabi - reaturns OS/ABI
+ * @stream: stream of bytes;
  */
-void print_type(char *ptr)
+static const char *_get_osabi(uint8_t *stream, size_t len)
 {
-	char type = ptr[16];
+	const char *osabi_13[] = {
+		"UNIX - System V", "HP-UX", "UNIX - NetBSD",
+		"Linux ABI", "GNU_ELF", "",
+		"UNIX - Solaris", "AIX ABI", "IRIX ABI",
+		"FreeBSD ABI", "TRU64 UNIX ABI", "Novell Modesto",
+		"Open BSD"
+	};
+	int value;
+	const char *str;
 
-	if (ptr[5] == 1)
-		type = ptr[16];
-	else
-		type = ptr[17];
-
-	printf("  Type:                              ");
-	if (type == 0)
-		printf("NONE (No file type)\n");
-	else if (type == 1)
-		printf("REL (Relocatable file)\n");
-	else if (type == 2)
-		printf("EXEC (Executable file)\n");
-	else if (type == 3)
-		printf("DYN (Shared object file)\n");
-	else if (type == 4)
-		printf("CORE (Core file)\n");
-	else
-		printf("<unknown: %x>\n", type);
+	if (stream && len > 8)
+	{
+		value = (stream[7] & 0xFF);
+		if (value <= 13)
+		{
+			str = osabi_13[value];
+		} else if (value == 64)
+		{
+			str = "ARM architecture EABI";
+		} else if (value == 97)
+		{
+			str = "ARM ABI";
+		} else if (value == 255)
+		{
+			str = "Standalone (embedded) application";
+		}
+	}
+	return (str);
 }
 
 /**
- * print_osabi - prints osabi
- * @ptr: magic.
- * Return: no return.
- */
-void print_osabi(char *ptr)
-{
-	char osabi = ptr[7];
-
-	printf("  OS/ABI:                            ");
-	if (osabi == 0)
-		printf("UNIX - System V\n");
-	else if (osabi == 2)
-		printf("UNIX - NetBSD\n");
-	else if (osabi == 6)
-		printf("UNIX - Solaris\n");
-	else
-		printf("<unknown: %x>\n", osabi);
-
-	printf("  ABI Version:                       %d\n", ptr[8]);
-}
-
-
-/**
- * print_version - prints version
- * @ptr: magic.
- * Return: no return.
- */
-void print_version(char *ptr)
-{
-	int version = ptr[6];
-
-	printf("  Version:                           %d", version);
-
-	if (version == EV_CURRENT)
-		printf(" (current)");
-
-	printf("\n");
-}
-/**
- * print_data - prints data
- * @ptr: magic.
- * Return: no return.
- */
-void print_data(char *ptr)
-{
-	char data = ptr[5];
-
-	printf("  Data:                              2's complement");
-	if (data == 1)
-		printf(", little endian\n");
-
-	if (data == 2)
-		printf(", big endian\n");
-}
-/**
- * print_magic - prints magic info.
- * @ptr: magic.
- * Return: no return.
- */
-void print_magic(char *ptr)
-{
-	int bytes;
-
-	printf("  Magic:  ");
-
-	for (bytes = 0; bytes < 16; bytes++)
-		printf(" %02x", ptr[bytes]);
-
-	printf("\n");
-
-}
-
-/**
- * check_sys - check the version system.
- * @ptr: magic.
- * Return: no return.
- */
-void check_sys(char *ptr)
-{
-	char sys = ptr[4] + '0';
-
-	if (sys == '0')
-		exit(98);
-
-	printf("ELF Header:\n");
-	print_magic(ptr);
-
-	if (sys == '1')
-		printf("  Class:                             ELF32\n");
-
-	if (sys == '2')
-		printf("  Class:                             ELF64\n");
-
-	print_data(ptr);
-	print_version(ptr);
-	print_osabi(ptr);
-	print_type(ptr);
-	print_addr(ptr);
-}
-
-/**
- * check_elf - check if it is an elf file.
- * @ptr: magic.
+ * _is_elf - check if it is an elf file.
+ * @stream: array holding the bytes read.
  * Return: 1 if it is an elf file. 0 if not.
  */
-int check_elf(char *ptr)
+static bool _is_elf(uint8_t *stream)
 {
-	int addr = (int)ptr[0];
-	char E = ptr[1];
-	char L = ptr[2];
-	char F = ptr[3];
+	const uint8_t elf_magic_id[4] = { 0x7F, 0x45, 0x4C, 0x46 };
 
-	if (addr == 127 && E == 'E' && L == 'L' && F == 'F')
-		return (1);
-
-	return (0);
+	if (stream)
+	{
+		if (memcmp(stream, elf_magic_id, 4) == 0)
+			return (true);
+	}
+	return (false);
 }
 
 /**
@@ -207,40 +141,60 @@ int check_elf(char *ptr)
  */
 int main(int argc, char *argv[])
 {
-	int fd, ret_read;
-	char ptr[27];
+	int fd = -1, count = 0;
+	FILE *file;
+	ssize_t n_read;
+	uint8_t buff[_MAX_HDR_SIZE];
 
 	if (argc != 2)
 	{
-		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
+		fprintf(stderr, "Usage: elf_header elf_filename\n");
 		exit(98);
 	}
 
-	fd = open(argv[1], O_RDONLY);
-
-	if (fd < 0)
+	file = fopen(argv[1], "rb");
+	if (file == NULL)
 	{
-		dprintf(STDERR_FILENO, "Err: file can not be open\n");
+		fprintf(stderr, "ERROR: %s:\n", strerror(errno));
 		exit(98);
 	}
+	fd = fileno(file);
+	lseek(fd, 0L, SEEK_SET);
 
-	lseek(fd, 0, SEEK_SET);
-	ret_read = read(fd, ptr, 27);
-
-	if (ret_read == -1)
+	n_read = read(fd, buff, _MAX_HDR_SIZE);
+	if (n_read == -1)
 	{
-		dprintf(STDERR_FILENO, "Err: The file can not be read\n");
+		fprintf(stderr, "ERROR: %s\n", strerror(errno));
 		exit(98);
 	}
+	fclose(file);
 
-	if (!check_elf(ptr))
+	if (!_is_elf(buff))
 	{
-		dprintf(STDERR_FILENO, "Err: It is not an ELF\n");
+		fprintf(stderr, "ERROR: file: %s is not an ELF!\n", argv[1]);
 		exit(98);
 	}
 
-	check_sys(ptr);
-	close(fd);
-
+	fprintf(stdout, "ELF Header:\n");
+	fprintf(stdout, "  Magic:   ");
+	for (count = 0; count < 16; count++) {
+		fprintf(stdout, "%02x ", buff[count]);
+	}
+	fprintf(stdout, "\n");
+	fprintf(stdout, "  Class:                             %s\n",
+			((buff[4] == 1) ? "ELF32" : "ELF64"));
+	fprintf(stdout, "  Data:                              2's complement, %s\n",
+			(buff[5] == 1) ? "little endian" : "big endian");
+	fprintf(stdout, "  Version:                           %s\n",
+			(buff[6] == 1) ? "1 (current)" : "0 (invalid)");
+	fprintf(stdout, "  OS/ABI:                            %s\n",
+			_get_osabi(buff, n_read));
+	fprintf(stdout, "  ABI Version:                       %d\n",
+			((buff[7] << 8) & 0xFF));
+	fprintf(stdout, "  Type:                              %s\n",
+			_get_type(buff, n_read));
+	fprintf(stdout, "  Machine:                           %s\n",
+			_get_machine(buff, n_read));
 	return (0);
 }
+
