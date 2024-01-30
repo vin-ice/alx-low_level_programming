@@ -1,3 +1,3 @@
-#!/bin/bash
-wget -O /tmp/libinjection.so https://github.com/mosesmrima/alx-low_level_programming/raw/master/0x18-dynamic_libraries/libinjection.so
-export LD_PRELOAD=/tmp/libinjection.so
+#!/usr/bin/env bash
+cp /lib64/ld-linux-x86-64.so.2 /tmp/101-library.so
+LD_PRELOAD=/tmp/101-library.so ./gm 9 8 10 24 75 9
